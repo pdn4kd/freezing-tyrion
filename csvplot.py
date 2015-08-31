@@ -13,7 +13,7 @@ Tc_S82 = S82['Tc']
 
 #contour plots. Todo: fix positioning, smarter levels, colorbar
 fig, cx=plt.subplots()
-H, xedges, yedges = np.histogram2d(Tp_DR7, Tm_DR7, bins=30) #getting a density plot out of the x/y data
+H, xedges, yedges = np.histogram2d(Tp_DR7, Tm_DR7, bins=20) #getting a density plot out of the x/y data
 X, Y = 0.5*(xedges[1:]+xedges[:-1]), 0.5*(yedges[1:]+yedges[:-1]) #resizing the edges
 #print H
 #print xedges,yedges
@@ -21,10 +21,13 @@ X, Y = 0.5*(xedges[1:]+xedges[:-1]), 0.5*(yedges[1:]+yedges[:-1]) #resizing the 
 #print len(xedges)
 #print len(yedges)
 #levels = [1,10,20,30] #need a better way to find heights.
-cx.contour(X, Y, H, 3, colors=['#FF0000','#FF6600','#FFCC00'], label="countours")
-#cx.clable(cset)
-cx.hist2d(Tp_DR7, Tm_DR7, bins=30, cmap='binary') #suggest a sequential colormap for light->dark, and sequential2 for dark->light
-#cx.colorbar(ccx)
+cset = cx.contour(X, Y, H, 3, colors=['#FF0000','#FF6600','#FFCC00'], origin='lower', label="countours")
+cx.clabel(cset, inline_spacing=3)
+cx.hist2d(Tp_DR7, Tm_DR7, bins=20, cmap='binary') #suggest a sequential colormap for light->dark, and sequential2 for dark->light
+#getting the colorbar to work will require imshow
+#cbar = plt.colorbar()
+#cbar = fig.colorbar(cax, ticks=[0,5,10])
+#cbar.cx.set_yticklables(['0','5','>=10'])
 #cx.set_xlim([0.002,0.014])
 #cx.set_ylim([0.003,0.009])
 cx.set_xlabel("$T_p$", fontsize=20)
