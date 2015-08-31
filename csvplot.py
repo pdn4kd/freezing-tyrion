@@ -11,27 +11,32 @@ Tp_S82 = S82['Tp']
 Tm_S82 = S82['Tm']
 Tc_S82 = S82['Tc']
 
-#contour plots. Todo: fix positioning, smarter levels, better colors
+#contour plots. Todo: fix positioning, smarter levels, colorbar
 fig, cx=plt.subplots()
-H, xedges, yedges = np.histogram2d(Tp_DR7,Tm_DR7,bins=10, normed)
+H, xedges, yedges = np.histogram2d(Tp_DR7, Tm_DR7, bins=30) #getting a density plot out of the x/y data
+X, Y = 0.5*(xedges[1:]+xedges[:-1]), 0.5*(yedges[1:]+yedges[:-1]) #resizing the edges
 #print H
+#print xedges,yedges
 #print len(H)
 #print len(xedges)
 #print len(yedges)
-levels = [1,10,20,30]
-cx.contourf(H, levels=levels, label=cx)
+#levels = [1,10,20,30] #need a better way to find heights.
+cx.contour(X, Y, H, 3, colors=['#FF0000','#FF6600','#FFCC00'], label="countours")
+#cx.clable(cset)
+cx.hist2d(Tp_DR7, Tm_DR7, bins=30, cmap='binary') #suggest a sequential colormap for light->dark, and sequential2 for dark->light
+#cx.colorbar(ccx)
 #cx.set_xlim([0.002,0.014])
 #cx.set_ylim([0.003,0.009])
 cx.set_xlabel("$T_p$", fontsize=20)
 cx.set_ylabel("$T_m$", fontsize=20)
 cx.set_title("$Image \, and \, Model \, Tidal \, Parameter \, Distribution \, (GALAPAGOS \, Masking)$", fontsize=28)
 #legend = cx.legend(loc=0, fancybox=True)
-#plt.show()
+plt.show()
 '''
 #scatter plots
 fig, ax=plt.subplots()
-ax.scatter(Tp_DR7, Tm_DR7, color="#FF8800", s=5, label="DR7")
-ax.scatter(Tp_S82, Tm_S82, color="#0088FF", s=1, label="S82")
+ax.scatter(Tp_DR7, Tm_DR7, color="#FF7700", s=5, label="DR7")
+ax.scatter(Tp_S82, Tm_S82, color="#0077FF", s=1, label="S82")
 ax.set_xlim([0.002,0.014])
 ax.set_ylim([0.003,0.009])
 ax.set_xlabel("$T_p$", fontsize=20)
