@@ -1,0 +1,111 @@
+\documentclass{slides}
+\usepackage{amsmath}
+\begin{document}
+
+A Minimal/Incomplete Statistical Toolbox
+
+Cominations/Permutations:
+
+$_nC_r$ = $\frac{n!}{r!(n-r)!}$; $_nP_r$ = $\binom{n}{r} = \frac{n!}{(n-r)!}$
+
+
+Standard deviation:
+
+$\sigma = \sqrt{\frac{1}{N}\sum_{i=1}^{N} (x_i - \mu)^2}, \mu = \frac{1}{N}\sum_{i=1}^{N}(x_i)$
+
+$\sigma = \sqrt{\sum_{i=1}^{N} p_i (x_i -\mu)^2}, \mu = \sum_{i=1}^{N} p_i x_i$
+
+$\sigma = \sqrt{int_{x} (x - \mu)^2p(x)dx}, \mu = \int_{X} x p(x)dx$
+
+\newpage
+Error Propagation
+
+\begin{tabular}{l l}
+ f = A+B & $\sigma^2_f = \sigma^2_A + \sigma^2_B$ \\
+ f = aA & $\sigma^2_f = a^2\sigma^2_A$ \\
+ f = aA $\pm$ bB & $\sigma_f^2 = a^2\sigma_A^2 + b^2\sigma_B^2 \pm 2ab\sigma_{AB}$ \\
+ f = AB & $f^2 (({\sigma_A}over{A})^2 + ({\sigma_A}over{A})^2 + 2{\sigma_{AB}}over{AB})$ \\ 
+ f = a$A^b$ & $\sigma_f^2 = (abA^{b-1}\sigma_A)^2 = ({fb\sigma_A}over{A})^2$ \\
+ f = a $log_b(cA)$ & $\sigma_f^2 = (a{\sigma_A}over{A ln(b)})^2$ \\
+ f = $a^{bA}$ & $\sigma^2_f = f^2(b ln(a)\sigma_A)^2$ \\
+\end{tabular}
+
+\newpage
+Normal Distribution
+\[
+Y = \frac{1}{\sqrt{2\pi}} e^{-\frac{1}{2}(x-\mu)^2/\sigma^2} = \frac{1}{\sqrt{2\pi}} e^{-0.5*Z^2} 
+\]
+Incidentally, this is can also be expressed as a sepcial case of the S\'ersic function: $\Sigma(r) = \Sigma_e exp(-\kappa((\over{r}{r_e})^{1/n}-1))$
+(including diff between 2 means and sigmas, as well as z-score and hypothesis testing)
+
+\newpage
+Binomial Distribution
+
+probability of success, failure = p, q. (q = 1-p)
+
+For n trials, x successes: $\binom{n}{x}p^x q^{n-x}$ = $\frac{n!}{(n-x)!}p^x q^{n-x}$
+
+$\mu_p = n \cdot p$
+
+$\sigma = \sqrt{n \cdot p \cdot q} = \sqrt{n \cdot p (1-p)} $
+
+Alternatively, finding a distribution given P successes and Q failures in N trials:
+
+$\sigma = \sqrt{PQ/N}; \mu = P$ (p = P/N; q = Q/N)
+
+
+Multiple distributions interacting:
+
+$\mu_{a-b} = \mu_a - \mu_b$
+$\sigma_{a-b} = \sqrt{\sigma_a^2 + \sigma_b^2}$
+
+
+(including diff between 2 means and sigmas, as well as z-score and hypothesis testing)
+
+Binomial test: find the probability of getting P or more successes, given a probability of p. (Just sum up the probabilities, treat as a p-value. This is an exact test, though for large sample sizes $\chi^2$ will also work. One-tailed is obvious enough, though two-tailed is more subtle. Do you want the total deviation to be greater or less than the expected value? Do you want the deviation in both directions to be as likely or less likely than the expected value?)
+scipy.stats.binom\_test(P, N, p, alternative='greater')
+scipy.stats.binom\_test(P, N, p, alternative='two-sided')
+
+\newpage
+Fisher's exact test -- for finding correlations between 2 binomial variables. (need to include calculation example, 1 vs 2 tailed)
+You can arrange your data into a 2x2 grid, and want to know if there is a correlation between the amount in each category in your 2 different samples. There's a trick with a hypergeometric distribution -- you only need to consider cases with the name marginal sums. (Marginal sums: rows, columns, total.)
+
+\begin{tabular}{c c}
+ array 1 & array 2 \\
+ A & B \\
+ C & D \\
+\end{tabular}
+A+B+C+D = N
+$p = {({A+B}over{A})({C+D}over{C})}over{({N}over{A+C})} = {(A+B)! (C+D)! (A+C)! (B+D)!}over{A! B! C! D! N!}$
+Significance requires finding all p-values more extreme than this. (obvious enough for one tailed, but sutble for two tailed)
+scipy.stats.fisher\_exact(array$_1$, array$_2$)
+
+\newpage
+Poisson Distribution
+\[
+p(x) = \frac{\lambda^x e^{-\lambda}}{x!}
+\]
+x = 0, 1, 2, ...; $\mu = \lambda = \sigma^2$ 
+
+Kolmovogorov-Smirnov Test
+2 functions, function plus point collection, or 2 point collections. Last is most useful.
+from scipy import stats 
+stats.ks\_2samp(array$_1$, array$_2$)
+
+\newpage
+(students T-test) TBD
+(pearsons chi-squared test) TBD
+Statistical tests in general follow a 2-step process: A test statistic is calculated, using whatever parameters are considered relevant. This statistic is then compared with the distribution of that statistic given the parameters under the null hypothesis (eg: same means, same variances, etc).
+
+\newpage
+F-test
+compare 2 fits to determine which is better. Or rather, given their Chi-squared (or similiar sum of squares) values, number of parameters (or degrees of freedom), etc, the probability of one fit being better than another for certain assumptions.
+$F-statistic == frac{(SS_1 - SS_2)/(df_1-df_2)}{SS_2/df_2)}$
+1 - p-value == scipy.stats.f.cdf(F-statistic, degrees of freedom for fit 1, degrees of freedom for fit 2)
+This use gives a 1-tailed test. To avoid the 1-p-value annoyance, consider sf instead of cdf.
+(A high F-statistic points to low p-value and vice-versa. Note that scipy's f-test gives you the probability that the null hypothesis can be rejected, not accepted!)
+
+Degrees of Freedom show up fairly regularly in different statistical tests. They often correspond to number of parameters (or data points) minus one. Or data - parameters - 1.
+
+
+\end{document}
