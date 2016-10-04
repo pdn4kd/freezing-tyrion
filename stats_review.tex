@@ -24,9 +24,9 @@ Error Propagation
  f = A+B & $\sigma^2_f = \sigma^2_A + \sigma^2_B$ \\
  f = aA & $\sigma^2_f = a^2\sigma^2_A$ \\
  f = aA $\pm$ bB & $\sigma_f^2 = a^2\sigma_A^2 + b^2\sigma_B^2 \pm 2ab\sigma_{AB}$ \\
- f = AB & $f^2 (({\sigma_A}over{A})^2 + ({\sigma_A}over{A})^2 + 2{\sigma_{AB}}over{AB})$ \\ 
- f = a$A^b$ & $\sigma_f^2 = (abA^{b-1}\sigma_A)^2 = ({fb\sigma_A}over{A})^2$ \\
- f = a $log_b(cA)$ & $\sigma_f^2 = (a{\sigma_A}over{A ln(b)})^2$ \\
+ f = AB & $f^2 ((\frac{\sigma_A}{A})^2 + (\frac{\sigma_A}{A})^2 + 2\frac{\sigma_{AB}}{AB})$ \\ 
+ f = a$A^b$ & $\sigma_f^2 = (abA^{b-1}\sigma_A)^2 = (\frac{fb\sigma_A}{A})^2$ \\
+ f = a $log_b(cA)$ & $\sigma_f^2 = (a\frac{\sigma_A}{A ln(b)})^2$ \\
  f = $a^{bA}$ & $\sigma^2_f = f^2(b ln(a)\sigma_A)^2$ \\
 \end{tabular}
 
@@ -35,7 +35,7 @@ Normal Distribution
 \[
 Y = \frac{1}{\sqrt{2\pi}} e^{-\frac{1}{2}(x-\mu)^2/\sigma^2} = \frac{1}{\sqrt{2\pi}} e^{-0.5*Z^2} 
 \]
-Incidentally, this is can also be expressed as a sepcial case of the S\'ersic function: $\Sigma(r) = \Sigma_e exp(-\kappa((\over{r}{r_e})^{1/n}-1))$
+Incidentally, this is can also be expressed as a sepcial case of the S\'ersic function: $\Sigma(r) = \Sigma_e exp(-\kappa((\frac{r}{r_e})^{1/n}-1))$
 (including diff between 2 means and sigmas, as well as z-score and hypothesis testing)
 
 \newpage
@@ -76,7 +76,7 @@ You can arrange your data into a 2x2 grid, and want to know if there is a correl
  C & D \\
 \end{tabular}
 A+B+C+D = N
-$p = {({A+B}over{A})({C+D}over{C})}over{({N}over{A+C})} = {(A+B)! (C+D)! (A+C)! (B+D)!}over{A! B! C! D! N!}$
+$p = \frac{(\frac{A+B}{A})(\frac{C+D}{C})}{(\frac{N}{A+C})} = \frac{(A+B)! (C+D)! (A+C)! (B+D)!}{A! B! C! D! N!}$
 Significance requires finding all p-values more extreme than this. (obvious enough for one tailed, but sutble for two tailed)
 scipy.stats.fisher\_exact(array$_1$, array$_2$)
 
