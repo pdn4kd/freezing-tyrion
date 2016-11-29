@@ -112,7 +112,7 @@ sma = (G*(m_planet+m_star)*(p_planetmin/np.pi/2)**2)**(1.0/3)
 print("sma (AU):", sma/149597870700.0)
 print("b (stellar radii): ", impactmin/r_star)
 print("Epoch: ", epochmin)
-print("\nDepth, duration, i:", r_planetmin/r_star, r_star/(np.pi*sma), np.cos(impactmin/r_star))
+print("\nDepth, duration, i:", r_planetmin/r_star, r_star/(np.pi*sma), np.cos(impactmin/sma))
 ymin2 = [magnitude(r_star, r_planetmin, p_planetmin, m_star, m_planet, impactmin, epochmin, ts) for ts in ideal_obs]
 ax.plot(ideal_obs, ymin2, linewidth=1, color="#FFAA88", label="Lowest χ²/ν")
 ax.legend()
