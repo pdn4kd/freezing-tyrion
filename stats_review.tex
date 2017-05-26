@@ -4,10 +4,28 @@
 
 A Minimal/Incomplete Statistical Toolbox
 
+Set things:
+
+A $\subset$ B means that the existence of A implies B
+$A^c = 1 - A$
+
+$A = (A \cap B^c) \cup (A \cap B)$
+
+$P(A \cap B^c) = P(A) - P(A \cap B)$
+
+$P(A \cup B) = P(A) + P(B) - P(A \cap B)$ (recursively applicable, last term is 0 if A \& B are mutually exclusive)
+
+$P(A|B)=P(A \cap B)/P(B)$
+
+Independence: $P(A|B) = P(A); P(A \cap B) = P(A) P(B)$
+
+Baye's Theorem: $P(B_j|A) = \frac{P(B_j) P(A|B_j)}{\sum_{i=1}^{k} P(B_i) P(A|B_i)}$
+
+
+\newpage
 Cominations/Permutations:
 
 $_nC_r$ = $\frac{n!}{r!(n-r)!}$; $_nP_r$ = $\binom{n}{r} = \frac{n!}{(n-r)!}$
-
 
 Standard deviation:
 
@@ -86,6 +104,8 @@ Poisson Distribution
 p(x) = \frac{\lambda^x e^{-\lambda}}{x!}
 \]
 x = 0, 1, 2, ...; $\mu = \lambda = \sigma^2$ 
+
+This is self-similiar, so if you have an occurance rate over one timescale you can easily multiply to get occurance probabilities over another.
 
 Kolmovogorov-Smirnov Test
 2 functions, function plus point collection, or 2 point collections. Last is most useful.
