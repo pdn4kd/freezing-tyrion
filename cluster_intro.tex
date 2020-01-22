@@ -1,0 +1,72 @@
+\documentclass[11pt]{article}
+%\documentclass[paper=a4,fontsize=12pt]{article}
+%\usepackage[utf8x]{inputenc}
+\usepackage{amsmath,amsfonts,amsthm}     % Math packages
+\usepackage{latexsym}
+\usepackage[margin=0.75in]{geometry}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Patrick Newman \\ \today}
+\lhead{GMU Exo Cluster Operations}
+\renewcommand{\headrulewidth}{0pt}
+
+\begin{document}
+
+\title{GMU Exo cluster Operations}
+
+\section{Current hardware/software}
+As of 2020-01-22, we have 5 "old" nodes and 2 "new nodes":
+
+\begin{tabular}{l | c | c | c | c | c | c | c | l}
+Number & Cores & RAM & Storage & OS & IDL & Matlab & Python & Comments \\
+1 & & 32 GiB & 2 TiB & Ubuntu 14.04 & Yes & Yes & 3 & Main node \\
+2 & & 32 GiB & 2 TiB & Ubuntu 14.04 & Yes & Yes & 3 & \\
+3 & & & & & & & & Dead \\
+4 & & & & & & & & Dead \\
+5 & & & & & & & & Dead \\
+6 & & & & & & & & Dead \\
+7 & & 32 GiB & 2 TiB & Ubuntu 14.04 & Yes & Yes & 3 & \\
+8 & & 32 GiB & 2 TiB & Ubuntu 14.04 & Yes & Yes & 3 & \\
+9 & & & & & & & & Dead \\
+10 & & 32 GiB & 2 TiB & Ubuntu 14.04 & Yes & Yes & 3 & \\
+11 & & 32 GiB & 2 TiB & Red Hat ??? & ??? & ??? & ??? & node 13, no /media access \\
+12 & & 32 GiB & 2 TiB & Red Hat ??? & ??? & ??? & ??? & node 14, no /media access \\
+\end{tabular}
+
+Other features (media sdb and sdc)
+
+\section{Account creation/management}
+Contact the current keeper of the cluster to get an account.
+(changing password)
+
+\section{Cluster Basics}
+\subsection{logging on/off}
+\subsection{navigation/basic file operations}
+If you are at all familiar with *nix commandlines (typically linux or macos), you already know how to naviage the cluster. If you do not but have familiarity with the windows command line (cmd.exe, powershell, etc), the concepts will be familiar, though the commands different.
+
+For the forseeable future, the cluster will only be accessible via the commandline
+
+(need to login between nodes, include how to automate it?)
+
+(we could use an interactive tutorial on ls, rm, cp, mv, mkdir, vi, nano, ps, chmod, chown, etc. also exectuing something)
+
+There are a great deal of additional neat things you can do with managing files (eg: sed and awk) that are beyond the scope of this document.
+
+\subsection{moving files around}
+(scp and its similiarities to ssh)
+(using /media/sdb and /media/sdc)
+
+\subsection{file editing}
+On most *nix machines, you always have access to 3 text editors in the terminal: ed, vim, and nano.
+To edit a file, type either "vim filename" or "nano filename". While I am partial to vim (due to its greater capabilities), nano's learning curve is less front-loaded.
+
+See (link) for a sketch of vim commands and capabilities.
+
+ed and emacs are beyond the scope of this document.
+
+\subsection{cluster usage examples}
+
+\subsection{tmux}
+
+\end{document}
